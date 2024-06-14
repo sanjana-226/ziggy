@@ -1,1 +1,30 @@
-<p>home works!</p>
+<div>
+    <br>
+    <p>Welcome to the home page of the delivery service.</p>
+    <p>Here you can view all the orders, drivers, and create a new order.</p>
+    <p>Select below to navigate to the desired page.</p>
+</div>
+
+<div class="flex flex-row">
+    <mat-card (click)="navigateTo('orders')">
+        <mat-card-header>
+            <mat-card-title>
+                <h1>Orders</h1>
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
+    <mat-card (click)="navigateTo('drivers')">
+        <mat-card-header>
+            <mat-card-title>
+                <h1>Drivers</h1>
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
+    <mat-card (click)="navigateTo('create-order')">
+        <mat-card-header>
+            <mat-card-title>
+                <h1>Create an Order</h1>
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
+</div>

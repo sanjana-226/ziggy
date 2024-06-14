@@ -1,0 +1,24 @@
+/* mat card */
+mat-card {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 30%;
+  height: 100pt;
+  text-align: center;
+  display: flex;
+}
+
+div{
+    text-align: center;
+}
+
+h1{
+    font-size: large;
+}
+
+p{
+    font-size: large;
+}

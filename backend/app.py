@@ -11,6 +11,9 @@ from bson.objectid import ObjectId
 client = MongoClient('mongodb://localhost:27017/')
 db = client.delivery_system
 
+# initialize driver set
+
+
 import math
 
 def haversine(point1, point2):

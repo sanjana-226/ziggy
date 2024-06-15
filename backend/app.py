@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb+srv://myAtlasDBUser:H0nuE1gTiBYqFE9s@atlascluster.kydmpyp.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster')
 db = client.delivery_system
 
 # CRUD operations for order

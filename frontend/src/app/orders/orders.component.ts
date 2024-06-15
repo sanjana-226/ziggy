@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -6,15 +6,49 @@ import { ApiService } from '../api.service';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent {
-  orders: any;
+export class OrdersComponent implements OnInit {
+  orders: any[] = [];
+
   constructor(private api: ApiService) { }
-  
+
+  ngOnInit() {
+    this.getOrders();
+    console.log('init');
+    console.log(this.orders);
+  }
+
+  onRefresh() {
+    this.getOrders();
+    console.log('refresh');
+    console.log(this.orders);
+  }
+
+  ngAfterViewInit() {
+    this.getOrders();
+    console.log('init');
+    console.log(this.orders);
+  }
 
   getOrders() {
-    this.orders = this.api.getOrders();
-    console.log(this.orders);
-    // get orders from the eve backend
-
+    this.api.getOrders().subscribe(data => {
+      this.orders = data;
+      console.log(this.orders);
+    }, error => {
+      console.error('Error fetching orders:', error);
+    });
   }
+
+  
+
+markAsDelivered(order: any) {
+  console.log('markAsDelivered');
+  console.log(order);
+    this.api.updateOrder(order._id, ).subscribe(data => {
+        console.log(data);
+        this.getOrders();
+    }, error => {
+        console.error('Error updating order:', error);
+    });
+}
+
 }

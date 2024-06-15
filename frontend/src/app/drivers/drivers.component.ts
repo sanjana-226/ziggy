@@ -1,41 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { interval, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-drivers',
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.css']
 })
-export class DriversComponent {
+export class DriversComponent implements OnInit, OnDestroy {
   drivers: any;
-  constructor(private api:ApiService) { }
+  private updateSubscription: Subscription;
 
-  ngOnInit() {
-    this.getDrivers();
-    console.log('init');
-    console.log(this.drivers);
-    
+  constructor(private api: ApiService) {
+    this.updateSubscription = interval(20000)
+      .pipe(
+        switchMap(() => this.api.getDrivers()) // Fetch drivers every second
+      )
+      .subscribe(
+        data => {
+          this.drivers = data;
+          console.log('Updated drivers:', this.drivers);
+        },
+        error => {
+          console.error('Error fetching drivers:', error);
+        }
+      );
+  }
+  ngOnInit(): void {
+      this.api.getDrivers().subscribe(
+        data => {
+          this.drivers = data;
+          console.log('Initial drivers:', this.drivers);
+        },
+        error => {
+          console.error('Error fetching drivers:', error);
+        }
+      );
+
+  }
+  ngOnDestroy(): void {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
   }
 
-  onRefresh() {
-    this.getDrivers();
-    console.log('refresh');
-    console.log(this.drivers);
+  onRefresh(): void {
+    this.api.getDrivers().subscribe(
+      data => {
+        this.drivers = data;
+        console.log('Manual refresh - drivers:', this.drivers);
+      },
+      error => {
+        console.error('Error fetching drivers:', error);
+      }
+    );
   }
-
-  ngAfterViewInit() {
-    this.getDrivers();
-    console.log('init');
-    console.log(this.drivers);
-  }
-
-  getDrivers() {
-    this.api.getDrivers().subscribe(data => {
-      this.drivers = data;
-      console.log(this.drivers);
-    }, error => {
-      console.error('Error fetching drivers:', error);
-    });
-  }
- 
 }
+

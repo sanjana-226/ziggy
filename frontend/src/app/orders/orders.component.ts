@@ -1,54 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
-
+import { FormBuilder, Validators } from '@angular/forms';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
   orders: any[] = [];
   orderForm: any;
+  private updateSubscription: Subscription = new Subscription;
 
   constructor(private fb: FormBuilder, private api: ApiService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getOrders();
-    console.log('init');
-    console.log(this.orders);
     this.orderForm = this.fb.group({
       start_location: ['', [Validators.required, Validators.minLength(2), coordinateFormatValidator()]],
       end_location: ['', [Validators.required, Validators.minLength(2), coordinateFormatValidator()]],
-    })
-  }
-
-  onRefresh() {
-    this.getOrders();
-    console.log('refresh');
-    console.log(this.orders);
-  }
-
-  ngAfterViewInit() {
-    this.getOrders();
-    console.log('init');
-    console.log(this.orders);
-  }
-
-  getOrders() {
-    this.api.getOrders().subscribe(data => {
-      this.orders = data;
-      console.log(this.orders);
-    }, error => {
-      console.error('Error fetching orders:', error);
     });
-  }
-  onSubmit() {
-    if (this.orderForm.valid) {
-      console.log(this.orderForm.value);
 
+    this.updateSubscription = interval(20000)
+      .pipe(
+        switchMap(() => this.api.getOrders())
+      )
+      .subscribe(
+        data => {
+          this.orders = data;
+          console.log('Updated orders:', this.orders);
+        },
+        error => {
+          console.error('Error fetching orders:', error);
+        }
+      );
+  }
+
+  ngOnDestroy(): void {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
+  }
+
+  onRefresh(): void {
+    this.getOrders();
+  }
+
+  getOrders(): void {
+    this.api.getOrders().subscribe(
+      data => {
+        this.orders = data;
+        console.log('Initial orders:', this.orders);
+      },
+      error => {
+        console.error('Error fetching orders:', error);
+      }
+    );
+  }
+
+  onSubmit(): void {
+    if (this.orderForm.valid) {
       this.api.createOrder(this.orderForm.value).subscribe(
         (data) => {
           console.log('Order created successfully:', data);
@@ -62,15 +75,16 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  markAsDelivered(order: any) {
-    console.log('markAsDelivered');
-    console.log(order);
-    this.api.doneOrder(order._id,).subscribe(data => {
-      console.log(data);
-      this.getOrders();
-    }, error => {
-      console.error('Error updating order:', error);
-    });
+  markAsDelivered(order: any): void {
+    this.api.doneOrder(order._id).subscribe(
+      data => {
+        console.log('Order marked as delivered:', data);
+        this.getOrders();
+      },
+      error => {
+        console.error('Error updating order:', error);
+      }
+    );
   }
 }
 

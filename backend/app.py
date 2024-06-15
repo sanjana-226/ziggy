@@ -85,16 +85,13 @@ def finish_jobs():
     if(num_orders > 1):
         orders_to_finish = random.sample(orders_in_progress, half_num_orders)
     
-    for order in orders_to_finish:
-        db.orders.delete_one({"_id": order["_id"]})
-        # db.orders.update_one(
-        #     {"_id": order["_id"]},
-        #     {"$set": {"status": "unassigned", "delivered": True}}
-        # )
-        db.drivers.update_one(
-            {"_id": order["driver_id"]},
-            {"$set": {"status": "free", "current_location": order["end_location"]}}
-        )
+        for order in orders_to_finish:
+            db.orders.delete_one({"_id": order["_id"]})
+            
+            db.drivers.update_one(
+                {"_id": order["driver_id"]},
+                {"$set": {"status": "free", "current_location": order["end_location"]}}
+            )
     
     print(f"Finished {len(orders_to_finish)} orders.")
 

@@ -93,7 +93,7 @@ def finish_jobs():
                 {"$set": {"status": "free", "current_location": order["end_location"]}}
             )
     
-    print(f"Finished {len(orders_to_finish)} orders.")
+            print(f"Finished {len(orders_to_finish)} orders.")
 
 def haversine(point1, point2):
     """

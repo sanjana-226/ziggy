@@ -1,12 +1,14 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-4" *ngFor="let driver of drivers">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>{{ driver.id }}</mat-card-title>
-                </mat-card-header>
+<div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div *ngFor="let driver of drivers" class="flex justify-center">
+            <mat-card class="w-full border-2">
                 <mat-card-content>
-                    <p>{{ driver }}</p>
+                    <!-- <p>Driver ID: {{ driver._id }}</p> -->
+                    <p>Current Location: {{ driver.current_location.coordinates }}</p>
+                    <p
+                        [ngClass]="{'text-green-600': driver.status === 'free', 'text-red-600': driver.status === 'busy'}">
+                        Status: {{ driver.status }}</p>
+
                 </mat-card-content>
             </mat-card>
         </div>

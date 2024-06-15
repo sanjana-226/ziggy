@@ -50,29 +50,15 @@ export class OrdersComponent implements OnInit {
       this.api.createOrder(this.orderForm.value).subscribe(
         (data) => {
           console.log('Order created successfully:', data);
-          // After order creation, fetch updated orders
           this.getOrders();
-          // Reset the form
           this.orderForm.reset();
         },
         error => {
           console.error('Error creating order:', error);
-          // Handle error if needed
         }
       );
     }
   }
-  // onSubmit() {
-  //   if (this.orderForm.valid) {
-  //     console.log(this.orderForm.value);
-  //     this.api.createOrder(this.orderForm.value).subscribe((data) => { console.log(data) });
-  //     // reload orders component?
-  //     this.getOrders();
-  //     // reload view
-
-  //     this.orderForm.reset();
-  //   }
-  // }
 
   markAsDelivered(order: any) {
     console.log('markAsDelivered');

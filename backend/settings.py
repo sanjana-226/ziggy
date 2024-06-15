@@ -24,10 +24,6 @@ DOMAIN = {
     },
     'drivers': {
         'schema': {
-            # 'name': {
-            #     'type': 'string',
-            #     'required': True,
-            # },
             'status': {
                 'type': 'string',
                 'allowed': ['busy', 'free'],

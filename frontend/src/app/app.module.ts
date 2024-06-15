@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { OrdersComponent } from './orders/orders.component';
 import { DriversComponent } from './drivers/drivers.component';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { ApiService } from './api.service';
 
@@ -23,7 +22,6 @@ import { MatCardModule } from '@angular/material/card';
     OrdersComponent,
     DriversComponent,
     HeaderComponent,
-    FooterComponent,
     HomeComponent
   ],
   imports: [

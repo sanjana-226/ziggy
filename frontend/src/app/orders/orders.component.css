@@ -3,6 +3,7 @@ mat-card {
     margin: 20px;
     padding: 20px;
     background-color: #f5f5f5;
+    /* background-color: rgb(251, 222, 234); */
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     text-align: center;

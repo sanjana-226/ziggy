@@ -42,7 +42,7 @@
         <!-- End Location -->
         <div class="flex flex-col items-center space-x-4">
             <div>
-                <label for="end_location" class="text-sm font-medium text-gray-700 mr-2">End Location:</label>
+                <label for="end_location" class="text-sm font-medium text-gray-700 mr-4">End Location:</label>
                 <input type="text" id="end_location" formControlName="end_location" class="border border-gray-400 ">
             </div>
             <div *ngIf="orderForm.get('end_location')?.errors?.['required'] && orderForm.get('end_location')?.touched"

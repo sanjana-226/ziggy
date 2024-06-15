@@ -1,19 +1,20 @@
 <div>
     <br>
-    <p>Welcome to the home page of Ziggy.</p>
-    <p>Here you can view all orders and drivers</p>
-    <p>Select below to navigate to the desired page.</p>
+    <h1>Welcome to Ziggy.</h1>
+    <p>Navigate below to view Orders and Drivers</p>
 </div>
 
-<div class="flex flex-row">
-    <mat-card (click)="navigateTo('orders')">
+<div class="flex flex-row justify-center">
+    <mat-card (click)="navigateTo('orders')" class="card">
         <mat-card-header>
             <mat-card-title>
-                <h1>Orders</h1>
+                <div class="title-container">
+                    <h1>Orders</h1>
+                </div>
             </mat-card-title>
         </mat-card-header>
     </mat-card>
-    <mat-card (click)="navigateTo('drivers')">
+    <mat-card (click)="navigateTo('drivers')"  class="card">
         <mat-card-header>
             <mat-card-title>
                 <h1>Drivers</h1>

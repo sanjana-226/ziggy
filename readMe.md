@@ -32,7 +32,7 @@ To supply custom data replace the Drivers.JSON or Orders.JSON files
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/delivery-management-system.git
+    git clone https://github.com/sanjana-226/ziggy.git
     cd delivery-management-system
     ```
 

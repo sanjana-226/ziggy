@@ -1,12 +1,16 @@
 <mat-toolbar color="primary" class="fixed top-0 w-full bg-blue-500 text-white z-30 pr-3">
   <mat-toolbar-row>
+    <div class="flex flex-row justify-between w-full align-baseline">
+
     <!-- <span class="logo-text" routerLink="/">Logo</span> -->
-    <img src="/assets/logo.png" alt="logo" class="h-12" routerLink="/"/>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/" routerLinkActive="active-link">Home</a>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/orders" routerLinkActive="active-link">Orders</a>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/drivers" routerLinkActive="active-link">Drivers</a>
+    <img src="/assets/logo.png" alt="logo" class="h-12" routerLink="/" />
+    <div class="flex flex-row gap-2 align-baseline">
+      <a mat-button routerLink="/" routerLinkActive="active-link">Home</a>
+
+      <a mat-button routerLink="/orders" routerLinkActive="active-link" >Orders</a>
+
+      <a mat-button routerLink="/drivers" routerLinkActive="active-link">Drivers</a>
+    </div>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

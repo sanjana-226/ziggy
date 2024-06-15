@@ -149,7 +149,7 @@ scheduler.add_job(finish_jobs, 'interval', seconds=30)
 scheduler.start()
 
 def flask_runner():
-    app.run()
+    app.run('0.0.0.0','80')
 
 if __name__ == '__main__':
     flask_thread = threading.Thread(target=flask_runner)

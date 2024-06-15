@@ -12,7 +12,7 @@ Ziggy is a startup that offers on-demand delivery of food and groceries. This pr
 
 ### Backend Deployment
 
-<https://ziggy-fp72.onrender.com>
+<https://ziggy-production.up.railway.app>
 
 ## Local Setup and Installation
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'https://ziggy-fp72.onrender.com';  
+  private baseUrl = 'https://ziggy-production.up.railway.app';  
 
   constructor(private http: HttpClient) { }
 

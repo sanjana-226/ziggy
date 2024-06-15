@@ -37,23 +37,22 @@ def add_order():
     order["_id"] = str(result.inserted_id)
     return jsonify(order)
 
-@app.route('/orders/<id>', methods=['PUT'])
-def update_order(id):
-    updated_data = request.json  # Assuming JSON data is sent in the request body
-    del updated_data['_id']
-    db.orders.update_one(
-        {"_id": ObjectId(id)},
-        {"$set": updated_data}
-    )
-    order = db.orders.find_one({"_id": ObjectId(id)})
-    order["_id"] = str(order["_id"])
-    return jsonify(order)
+# @app.route('/orders/<id>', methods=['PUT'])
+# def update_order(id):
+#     updated_data = request.json  # Assuming JSON data is sent in the request body
+#     del updated_data['_id']
+#     db.orders.update_one(
+#         {"_id": ObjectId(id)},
+#         {"$set": updated_data}
+#     )
+#     order = db.orders.find_one({"_id": ObjectId(id)})
+#     order["_id"] = str(order["_id"])
+#     return jsonify(order)
 
 @app.route('/orders/<id>', methods=['DELETE'])
 def delete_order(id):
     db.orders.delete_one({"_id": ObjectId(id)})
     return jsonify({"message": "Order deleted successfully"})
-
 
 # CRUD operations for drivers
 from flask import request, jsonify

@@ -10,24 +10,19 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // Orders API
   getOrders(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/orders`);
+    return this.http.get<any[]>(`${this.baseUrl}/orders`);
   }
 
-  getOrderById(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/orders/${id}`);
-  }
+  // getOrderById(id: string): Observable<any> {
+  //   return this.http.get(`${this.baseUrl}/orders/${id}`);
+  // }
 
   createOrder(order: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/orders`, order);
   }
 
-  updateOrder(id: string, order: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/orders/${id}`, order);
-  }
-
-  deleteOrder(id: string): Observable<any> {
+  updateOrder(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/orders/${id}`);
   }
 

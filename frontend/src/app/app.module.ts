@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { OrdersComponent } from './orders/orders.component';
-import { CreateOrderComponent } from './create-order/create-order.component';
 import { DriversComponent } from './drivers/drivers.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -22,7 +21,6 @@ import { MatCardModule } from '@angular/material/card';
   declarations: [
     AppComponent,
     OrdersComponent,
-    CreateOrderComponent,
     DriversComponent,
     HeaderComponent,
     FooterComponent,

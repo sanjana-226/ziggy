@@ -3,8 +3,8 @@
         <div *ngFor="let order of orders" class="flex justify-center">
             <mat-card class="w-full border-2">
                 <mat-card-content>
-                    <p>Start Location: {{ order.start_location }}</p>
-                    <p>End Location: {{ order.end_location }}</p>
+                    <p>Start Location: {{ order.start_location.coordinates }}</p>
+                    <p>End Location: {{ order.end_location.coordinates }}</p>
                     <p
                         [ngClass]="{'text-green-600': order.status === 'assigned', 'text-red-600': order.status === 'unassigned'}">
                         Status: {{ order.status }}</p>
@@ -17,29 +17,40 @@
         </div>
     </div>
 </div>
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" novalidate class="flex flex-col items-center space-y-4 justify-center border-black">
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" novalidate class="flex flex-col items-center space-y-4">
+    <!-- Start Location -->
     <div class="flex items-center space-x-4">
         <label for="start_location" class="text-sm font-medium text-gray-700">Start Location:</label>
         <input type="text" id="start_location" formControlName="start_location"
-            class="w-40 px-3 py-2 text-sm placeholder-gray-400 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            class="form-input">
         <div *ngIf="orderForm.get('start_location')?.errors?.['required'] && orderForm.get('start_location')?.touched"
             class="text-xs text-red-500 ml-2">
             Start Location is required.
         </div>
+        <div *ngIf="orderForm.get('start_location')?.errors?.['invalidFormat'] && orderForm.get('start_location')?.touched"
+            class="text-xs text-red-500 ml-2">
+            Start Location must be in valid format (latitude, longitude).
+        </div>
     </div>
 
+    <!-- End Location -->
     <div class="flex items-center space-x-4">
         <label for="end_location" class="text-sm font-medium text-gray-700">End Location:</label>
         <input type="text" id="end_location" formControlName="end_location"
-            class="w-40 px-3 py-2 text-sm placeholder-gray-400 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            class="form-input">
         <div *ngIf="orderForm.get('end_location')?.errors?.['required'] && orderForm.get('end_location')?.touched"
             class="text-xs text-red-500 ml-2">
             End Location is required.
         </div>
+        <div *ngIf="orderForm.get('end_location')?.errors?.['invalidFormat'] && orderForm.get('end_location')?.touched"
+            class="text-xs text-red-500 ml-2">
+            End Location must be in valid format (latitude, longitude).
+        </div>
     </div>
 
+    <!-- Submit Button -->
     <button type="submit" [disabled]="!orderForm.valid"
-        class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        class="btn-primary">
         Create Order
     </button>
 </form>

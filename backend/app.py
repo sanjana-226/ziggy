@@ -14,8 +14,7 @@ from bson.objectid import ObjectId
 client = MongoClient('mongodb://localhost:27017/')
 db = client.delivery_system
 
-# initialize driver set
-# ????
+# initialize driver set ???
 
 # CRUD operations for order
 @app.route('/orders', methods=['GET'])
@@ -25,33 +24,47 @@ def get_orders():
         order["_id"] = str(order["_id"]) 
     return jsonify(orders)
 
+# @app.route('/orders', methods=['POST'])
+# def add_order():
+#     order = {
+#         "start_location": request.json['start_location'],
+#         "end_location": request.json['end_location'],
+#         "status": "unassigned",
+#         "delivered": False
+#     }
+#     print(order)
+#     result = db.orders.insert_one(order)
+#     order["_id"] = str(result.inserted_id)
+#     return jsonify(order)
+
 @app.route('/orders', methods=['POST'])
 def add_order():
-    order = {
-        "start_location": request.json['start_location'],
-        "end_location": request.json['end_location'],
-        "status": "unassigned",
-        "delivered": False
-    }
-    result = db.orders.insert_one(order)
-    order["_id"] = str(result.inserted_id)
-    return jsonify(order)
-
-# @app.route('/orders/<id>', methods=['PUT'])
-# def update_order(id):
-#     updated_data = request.json  # Assuming JSON data is sent in the request body
-#     del updated_data['_id']
-#     db.orders.update_one(
-#         {"_id": ObjectId(id)},
-#         {"$set": updated_data}
-#     )
-#     order = db.orders.find_one({"_id": ObjectId(id)})
-#     order["_id"] = str(order["_id"])
-#     return jsonify(order)
+    try:
+        start_location = request.json['start_location']
+        end_location = request.json['end_location']
+        
+        start_lng, start_lat = map(float, start_location.split(','))
+        end_lng, end_lat = map(float, end_location.split(','))
+        
+        order = {
+            "start_location": {"type": "Point", "coordinates": [start_lng, start_lat]},
+            "end_location": {"type": "Point", "coordinates": [end_lng, end_lat]},
+            "status": "unassigned",
+            "delivered": False
+        }
+        
+        result = db.orders.insert_one(order)
+        order["_id"] = str(result.inserted_id)
+        
+        return jsonify(order), 201
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 @app.route('/orders/<id>', methods=['DELETE'])
 def delete_order(id):
     db.orders.delete_one({"_id": ObjectId(id)})
+    # free the driver !!!!!!!!
     return jsonify({"message": "Order deleted successfully"})
 
 # CRUD operations for drivers
@@ -63,34 +76,6 @@ def get_drivers():
     for driver in drivers:
         driver["_id"] = str(driver["_id"])
     return jsonify(drivers)
-
-@app.route('/drivers', methods=['POST'])
-def add_driver():
-    driver = {
-        "name": request.json['name'],
-        "phone": request.json['phone'],
-        "current_location": request.json['current_location'],
-        "status": "free"
-    }
-    result = db.drivers.insert_one(driver)
-    driver["_id"] = str(result.inserted_id)
-    return jsonify(driver)
-
-@app.route('/drivers/<id>', methods=['PUT'])
-def update_driver(id):
-    db.drivers.update_one(
-        {"_id": ObjectId(id)},
-        {"$set": request.json}
-    )
-    driver = db.drivers.find_one({"_id": ObjectId(id)})
-    driver["_id"] = str(driver["_id"])
-    return jsonify(driver)
-
-@app.route('/drivers/<id>', methods=['DELETE'])
-def delete_driver(id):
-    db.drivers.delete_one({"_id": ObjectId(id)})
-    return jsonify({"message": "Driver deleted successfully"})
-
 
 # Assign orders to drivers
 import math

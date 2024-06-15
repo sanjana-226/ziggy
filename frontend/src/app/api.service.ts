@@ -22,7 +22,7 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/orders`, order);
   }
 
-  updateOrder(id: string): Observable<any> {
+  doneOrder(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/orders/${id}`);
   }
 

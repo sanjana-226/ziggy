@@ -14,6 +14,17 @@ Ziggy is a startup that offers on-demand delivery of food and groceries. This pr
 
 <https://ziggy-production.up.railway.app>
 
+## Repopulate Database
+
+To add the sample data back to the Altas Cluster, run the db.py file locally
+
+```bash
+cd backend
+python db.py
+```
+
+To supply custom data replace the Drivers.JSON or Orders.JSON files
+
 ## Local Setup and Installation
 
 ### Installation

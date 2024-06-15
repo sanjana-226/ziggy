@@ -1,0 +1,30 @@
+[
+    {
+        "status": "free",
+        "current_location": {
+            "type": "Point",
+            "coordinates": [40.7128, -74.006]
+        }
+    },
+    {
+        "status": "free",
+        "current_location": {
+            "type": "Point",
+            "coordinates": [40.7306, -73.9352]
+        }
+    },
+    {
+        "status": "free",
+        "current_location": {
+            "type": "Point",
+            "coordinates": [40.6782, -73.9442]
+        }
+    },
+    {
+        "status": "free",
+        "current_location": {
+            "type": "Point",
+            "coordinates": [40.7559, -73.986]
+        }
+    }
+]

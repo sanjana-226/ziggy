@@ -12,6 +12,8 @@ Ziggy is a startup that offers on-demand delivery of food and groceries. This pr
 
 ### Backend Deployment
 
+<https://ziggy-fp72.onrender.com>
+
 ## Local Setup and Installation
 
 ### Installation

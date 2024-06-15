@@ -82,8 +82,8 @@ def finish_jobs():
     if half_num_orders == 0:
         half_num_orders = 1
         
-    
-    orders_to_finish = random.sample(orders_in_progress, half_num_orders)
+    if(num_orders > 1):
+        orders_to_finish = random.sample(orders_in_progress, half_num_orders)
     
     for order in orders_to_finish:
         db.orders.delete_one({"_id": order["_id"]})

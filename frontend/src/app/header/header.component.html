@@ -1,5 +1,11 @@
-<mat-toolbar color="primary" class="fixed top-0 w-full bg-blue-500 text-white">
+<mat-toolbar color="primary" class="fixed top-0 w-full bg-blue-500 text-white z-30">
   <mat-toolbar-row>
-      logo
+    <span class="logo-text" routerLink="/">Logo</span>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/" routerLinkActive="active-link">Home</a>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/orders" routerLinkActive="active-link">Orders</a>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/drivers" routerLinkActive="active-link">Drivers</a>
   </mat-toolbar-row>
 </mat-toolbar>
